@@ -17,7 +17,10 @@ load_dotenv()
 BASE=Path(__file__).resolve().parents[2]
 MODEL_PATH=Path(os.getenv("MODEL_PATH",str(Path(__file__).resolve().parent/"ml"/"artifacts"/"terragaurd_event_model.joblib")))
 if not MODEL_PATH.is_absolute(): MODEL_PATH=Path.cwd()/MODEL_PATH
-DATA_DIR=Path(os.getenv("TERRAGUARD_DATA_DIR",str(BASE/"data")))
+BACKEND_DIR = Path(__file__).resolve().parents[1]
+DATA_DIR = Path(
+    os.getenv("TERRAGUARD_DATA_DIR", str(BACKEND_DIR / "data"))
+)
 EVENTS_PATH=DATA_DIR/"processed"/"nasa_landslides_india.csv"
 HTML_PATH=BASE/"terraguard.html"
 FRONTEND_DIST=BASE/"frontend"/"dist"

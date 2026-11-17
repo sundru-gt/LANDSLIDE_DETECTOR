@@ -13,6 +13,8 @@ export default function AssessCard({
   errorMsg,
   onAnalyze,
   onSelectLocation,
+  onToggleDetails,
+  showDetails,
 }) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -103,7 +105,12 @@ export default function AssessCard({
         </button>
 
         {/* Assessment Score / Factors Output */}
-        <ScoreResult result={result} errorMsg={errorMsg} />
+        <ScoreResult
+          result={result}
+          errorMsg={errorMsg}
+          onToggleDetails={onToggleDetails}
+          showDetails={showDetails}
+        />
       </div>
     </div>
   );

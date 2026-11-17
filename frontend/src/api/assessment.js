@@ -57,6 +57,15 @@ export async function assessLocation(latitude, longitude) {
       }));
   }
 
-  return { score, risk, factors };
+  return {
+    score,
+    risk,
+    factors,
+    final_score: data.final_score || null,
+    components: data.final_score?.components || null,
+    features: data.features || null,
+    historical_evidence: data.historical_evidence || null,
+    raw: data,
+  };
 }
 

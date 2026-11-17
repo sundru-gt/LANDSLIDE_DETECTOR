@@ -77,16 +77,20 @@ def calculate_final_screening_score(
 
     components["historical_event_count"] = {
         "score": round(count_score, 2), "weight": 0.30,
-        "observed_value": count, "description": "Reported events within 25 km",
+        "observed_value": count,
+        "observed_value_display": f"{count} events within 25 km",
+        "description": "Reported events within 25 km",
     }
     components["nearest_event_proximity"] = {
         "score": round(proximity_score, 2) if proximity_score is not None else None,
         "weight": 0.20, "observed_value_km": nearest,
+        "observed_value_display": f"{nearest:.1f} km" if nearest is not None else "None within 25 km",
         "description": "Closer reported events contribute more",
     }
     components["event_recency"] = {
         "score": round(recency_score, 2) if recency_score is not None else None,
         "weight": 0.10, "observed_value_age_days": newest_age_days,
+        "observed_value_display": f"{int(newest_age_days)} days ago" if newest_age_days is not None else "No date available",
         "description": "More recent reported events contribute more",
     }
 
@@ -94,20 +98,29 @@ def calculate_final_screening_score(
         components["ml_relative_event_score"] = {
             "score": round(_clamp(float(ml_relative_score) * 100.0), 2),
             "weight": 0.20,
+            "observed_value": round(float(ml_relative_score), 4),
+            "observed_value_display": f"{float(ml_relative_score)*100:.1f}% relative probability",
             "description": "Existing model discrimination score; not calibrated probability",
         }
 
     rain_score = _rainfall_score(features)
     if rain_score is not None:
+        r24 = features.get("rain_24h_mm", 0.0)
+        r72 = features.get("rain_72h_mm", 0.0)
+        r7d = features.get("rain_7d_mm", 0.0)
         components["recent_rainfall"] = {
             "score": round(rain_score, 2), "weight": 0.15,
+            "observed_value_display": f"24h: {r24:.1f}mm | 72h: {r72:.1f}mm | 7d: {r7d:.1f}mm",
             "description": "Heuristic accumulation score from 24h, 72h and 7d rainfall",
         }
 
     moisture_score = _soil_moisture_score(features)
     if moisture_score is not None:
+        sm0 = features.get("soil_moisture_0_7cm_pct")
+        sm1 = features.get("soil_moisture_7_28cm_pct")
         components["soil_moisture"] = {
             "score": round(moisture_score, 2), "weight": 0.05,
+            "observed_value_display": f"{moisture_score:.1f}% volumetric moisture (avg)",
             "description": "Normalized soil-moisture indicator; not soil-specific",
         }
 

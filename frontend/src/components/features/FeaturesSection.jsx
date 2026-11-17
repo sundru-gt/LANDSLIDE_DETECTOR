@@ -3,8 +3,8 @@ import React from 'react';
 const FEATURES = [
   {
     num: "1",
-    title: "Satellite & sensor fusion",
-    desc: "Remote sensing and ground sensors are combined for continuous slope monitoring.",
+    title: "Satellite Reanalysis",
+    desc: "Combines satellite observations and atmospheric models to accurately reconstruct historical and predict future weather."
   },
   {
     num: "2",

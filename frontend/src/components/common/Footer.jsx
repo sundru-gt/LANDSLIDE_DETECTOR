@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="foot-minimal">
       {/* Top: Section navigation links & Red "Back to map" button (aligned to content grid) */}
-      <div className="foot-top-wrap">
+      {/* <div className="foot-top-wrap">
         <div className="foot-top">
           <nav className="foot-nav" aria-label="Footer navigation">
             <a href="#top">Overview</a>
@@ -18,7 +18,7 @@ export default function Footer() {
             Back to map &uarr;
           </a>
         </div>
-      </div>
+      </div> */}
 
       {/* Divider spanning full width of the screen */}
       <div className="foot-divider" />
@@ -31,7 +31,7 @@ export default function Footer() {
         </div>
 
         <div className="foot-credits">
-          Made by — <span>Kanishk, Aditi, Disanti, Sudhanshu and Aditi</span>
+          Made by — <span>Kanishk, Shivendru, Disanti, Sudhanshu and Aditi</span>
         </div>
       </div>
     </footer>

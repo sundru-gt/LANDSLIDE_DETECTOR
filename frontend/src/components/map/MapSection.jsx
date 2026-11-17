@@ -3,6 +3,7 @@ import SegmentedControl from '../common/SegmentedControl';
 import LeafletMap from './LeafletMap';
 import AssessCard from './AssessCard';
 import ZonesList from './ZonesList';
+import DetailedAssessmentSection from './DetailedAssessmentSection';
 
 export default function MapSection({
   filter,
@@ -21,6 +22,7 @@ export default function MapSection({
   onSelectCoordinates,
 }) {
   const [flyToTarget, setFlyToTarget] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
 
   const selectedCoords = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : null;
 
@@ -35,6 +37,10 @@ export default function MapSection({
 
   const handleSiteClick = site => {
     setFlyToTarget({ lat: site.lat, lng: site.lng, zoom: 7, siteName: site.n, timestamp: Date.now() });
+  };
+
+  const handleToggleDetails = () => {
+    setShowDetails(prev => !prev);
   };
 
   return (
@@ -81,6 +87,8 @@ export default function MapSection({
             errorMsg={errorMsg}
             onAnalyze={onAnalyze}
             onSelectLocation={handleSelectLocation}
+            onToggleDetails={handleToggleDetails}
+            showDetails={showDetails}
           />
 
           <ZonesList
@@ -89,6 +97,16 @@ export default function MapSection({
           />
         </div>
       </div>
+
+      {/* Detailed Assessment Section rendered below once user clicks 'Detailed Assessment' */}
+      {showDetails && result && (
+        <DetailedAssessmentSection
+          result={result}
+          lat={lat}
+          lng={lng}
+          onClose={() => setShowDetails(false)}
+        />
+      )}
     </section>
   );
 }

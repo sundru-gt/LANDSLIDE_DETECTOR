@@ -61,6 +61,7 @@ body {
 }
 
 @supports not (overflow: clip) {
+
   html,
   body {
     overflow-x: hidden;
@@ -724,6 +725,16 @@ h2 {
   font: 400 22px var(--disp);
 }
 
+.detailed-sec {
+  margin: 0 48px 56px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.detailed-sec-body {
+  padding: 28px;
+}
+
 .g2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1032,6 +1043,14 @@ tr:last-child td {
     padding: 0 20px 48px;
   }
 
+  .detailed-sec {
+    margin: 0 20px 40px;
+  }
+
+  .detailed-sec-body {
+    padding: 20px;
+  }
+
   .g2 {
     margin: 0 20px 48px;
   }
@@ -1122,6 +1141,14 @@ tr:last-child td {
   .mapwrap {
     padding: 0 16px 36px;
     gap: 16px;
+  }
+
+  .detailed-sec {
+    margin: 0 14px 28px;
+  }
+
+  .detailed-sec-body {
+    padding: 14px;
   }
 
   .g2 {

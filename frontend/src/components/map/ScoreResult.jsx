@@ -1,7 +1,7 @@
 import React from 'react';
 import { COL } from '../../constants/sites';
 
-export default function ScoreResult({ result, errorMsg }) {
+export default function ScoreResult({ result, errorMsg, onToggleDetails, showDetails }) {
   if (errorMsg) {
     return (
       <p className="hint" style={{ marginTop: "12px", color: "var(--red)" }}>
@@ -21,11 +21,16 @@ export default function ScoreResult({ result, errorMsg }) {
           {result.score}
           <small>/100</small>
         </div>
-        <span className={`bd ${result.risk}`}>{result.risk} risk</span>
+        <div>
+          <span className={`bd ${result.risk}`}>{result.risk} risk</span>
+          <div style={{ fontSize: "11px", color: "var(--mute)", fontFamily: "var(--mono)", marginTop: "4px" }}>
+            COMPOSITE SCREENING SCORE
+          </div>
+        </div>
       </div>
 
       {result.factors && result.factors.length > 0 && (
-        <div className="factors-list">
+        <div className="factors-list" style={{ marginTop: "12px" }}>
           {result.factors.map(f => (
             <div className="fr" key={f.name}>
               <span>{f.name}</span>
@@ -37,7 +42,29 @@ export default function ScoreResult({ result, errorMsg }) {
           ))}
         </div>
       )}
+
+      {/* Button to reveal the detailed assessment section below */}
+      {onToggleDetails && (
+        <button
+          type="button"
+          className="btn full sm"
+          onClick={onToggleDetails}
+          style={{
+            marginTop: "16px",
+            background: showDetails ? "var(--paper)" : "var(--ink)",
+            color: showDetails ? "var(--ink)" : "#fff",
+            border: "1px solid var(--ink)",
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+            transition: "all 0.2s ease",
+          }}
+        >
+          <span>{showDetails ? "Hide Detailed Assessment ↑" : "Detailed Assessment ↓"}</span>
+        </button>
+      )}
     </div>
   );
 }
-
